@@ -3,11 +3,13 @@ use crate::task::TaskContext;
 use crate::config::*;
 
 #[repr(align(4096))]
+#[derive(Copy, Clone)]
 struct KernelStack {
     data: [u8; KERNEL_STACK_SIZE],
 }
 
 #[repr(align(4096))]
+#[derive(Copy, Clone)]
 struct UserStack {
     data: [u8; USER_STACK_SIZE],
 }
@@ -60,7 +62,7 @@ pub fn load_apps() {
         core::slice::from_raw_parts(num_app_ptr.add(1), num_app + 1)
     };
     // clear i-cache first
-    asm!("fence.i");
+    unsafe { asm!("fence.i"); }
     // load apps
     for i in 0..num_app {
         let base_i = get_base_i(i);
