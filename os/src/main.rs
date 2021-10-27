@@ -8,6 +8,9 @@
 extern crate alloc;
 
 #[macro_use]
+extern crate bitflags;
+
+#[macro_use]
 mod console;
 mod lang_items;
 mod sbi;

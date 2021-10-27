@@ -1,9 +1,13 @@
 mod heap_allocator;
 mod address;
 mod frame_allocator;
+mod page_table;
 
-pub use address::{PhysAddr, VirtAddr, PhysPageNum, VirtPageNum, StepByOne};
-pub use frame_allocator::{FrameTracker, frame_alloc, frame_dealloc,};
+use page_table::{PTEFlags};
+use address::{VPNRange, StepByOne};
+pub use address::{PhysAddr, VirtAddr, PhysPageNum, VirtPageNum};
+pub use frame_allocator::{FrameTracker, frame_alloc, frame_dealloc};
+pub use page_table::{PageTableEntry};
 
 
 pub fn init() {
