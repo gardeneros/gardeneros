@@ -7,11 +7,10 @@ fn syscall(id: usize, args: [usize; 3]) -> isize {
     let mut ret: isize;
     unsafe {
         asm!("ecall",
-             in("x10") args[0],
+             inlateout("x10") args[0] => ret,
              in("x11") args[1],
              in("x12") args[2],
              in("x17") id,
-             lateout("x10") ret
         );
     }
     ret
@@ -32,3 +31,4 @@ pub fn sys_yield() -> isize {
 pub fn sys_get_time() -> isize {
     syscall(SYSCALL_GET_TIME, [0, 0, 0])
 }
+

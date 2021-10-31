@@ -20,6 +20,7 @@ mod loader;
 mod config;
 mod task;
 mod timer;
+mod sync;
 mod mm;
 
 global_asm!(include_str!("entry.asm"));
@@ -30,16 +31,22 @@ fn clear_bss() {
         fn sbss();
         fn ebss();
     }
-    (sbss as usize..ebss as usize).for_each(|a| unsafe { (a as *mut u8).write_volatile(0) });
+    unsafe {
+        core::slice::from_raw_parts_mut(
+            sbss as usize as *mut u8,
+            ebss as usize - sbss as usize,
+        ).fill(0);
+    }
 }
 
 #[no_mangle]
 pub fn rust_main() -> ! {
     clear_bss();
-    println!("[Kernel] Hello, world!");
+    println!("[kernel] Hello, world!");
     mm::init();
+    println!("[kernel] back to world!");
+    mm::remap_test();
     trap::init();
-    loader::load_apps();
     trap::enable_timer_interrupt();
     timer::set_next_trigger();
     task::run_first_task();
