@@ -6,7 +6,7 @@ KERNEL_BIN := $(KERNEL_ELF).bin
 DISASM_TMP := target/$(TARGET)/$(MODE)/asm
 
 # BOARD
-SBI ?= opensbi
+SBI ?= rustsbi
 BOOTLOADER := ../bootloader/$(SBI).bin
 
 # KERNEL ENTRY
