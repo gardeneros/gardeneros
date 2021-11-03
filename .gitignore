@@ -1,4 +1,7 @@
 .DS_Store
 os/target/*
+os/src/link_app.S
 os/Cargo.lock
 user/target/*
+user/Cargo.lock
+
