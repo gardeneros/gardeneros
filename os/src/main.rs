@@ -1,10 +1,9 @@
 #![no_std]
 #![no_main]
-#![feature(asm)]
 
+use core::arch::asm;
 use core::panic::PanicInfo;
 use core::fmt::{self, Write};
-
 
 const SYSCALL_EXIT: usize = 93;
 const SYSCALL_WRITE: usize = 64;
