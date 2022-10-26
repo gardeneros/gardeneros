@@ -1,3 +1,5 @@
+use core::arch::global_asm;
+
 mod context;
 
 use riscv::register::{
